@@ -1,29 +1,55 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
-import 'package:flutter_getx_project_template/main_entry_app.dart';
+import 'package:flutter_getx_project_template/constant/api_constants.dart';
+import 'package:flutter_getx_project_template/models/customer_list_response.dart';
+import 'package:flutter_getx_project_template/models/customer_model.dart';
+import 'package:flutter_getx_project_template/models/login_response_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MainEntryApp());
+  test('LoginResponseModel parses json', () {
+    final model = LoginResponseModel.fromJson({
+      'UserName': 'admin',
+      'Token': 'test_token',
+      'UserId': 130,
+      'Email': 'admin@gmail.com',
+    });
+    expect(model.userName, 'admin');
+    expect(model.token, 'test_token');
+    expect(model.userId, 130);
+  });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  test('CustomerModel parses and formats', () {
+    final model = CustomerModel.fromJson({
+      'Id': 39,
+      'Name': 'Four H Apparels',
+      'Phone': '01671303302',
+      'CustType': 'G',
+      'TotalDue': 1200.5,
+      'ImagePath': '/Content/39.png',
+    });
+    expect(model.id, 39);
+    expect(model.customerTypeDisplay, 'General');
+    expect(model.formattedBalance, '৳1200.50');
+    expect(model.fullImageUrl, 'https://www.Hisabplus.com/Content/39.png');
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  test('CustomerListResponse parses page info', () {
+    final res = CustomerListResponse.fromJson({
+      'Success': 1,
+      'CustomerList': [
+        {'Id': 1, 'Name': 'Customer A'},
+      ],
+      'PageInfo': {'PageNo': 1, 'TotalRecordCount': 100, 'PageCount': 5},
+    });
+    expect(res.customerList.length, 1);
+    expect(res.pageInfo.pageNo, 1);
+    expect(res.pageInfo.totalRecordCount, 100);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  test('ApiConstants generates image URL', () {
+    expect(
+      ApiConstants.getFullImageUrl('/img.png'),
+      'https://www.Hisabplus.com/img.png',
+    );
+    expect(ApiConstants.getFullImageUrl(null), '');
   });
 }

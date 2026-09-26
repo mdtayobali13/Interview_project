@@ -142,7 +142,10 @@ class HttpService {
 
   /// ✅ Common Headers (includes auth token if available)
   Map<String, String> getHeaders({Map<String, String>? extraHeaders}) {
-    Map<String, String> headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    };
     if (authToken != null) {
       headers['Authorization'] = 'Bearer $authToken';
     }
@@ -153,7 +156,9 @@ class HttpService {
   }
 
   /// ✅ **Handles API Calls with Token Refresh**
-  Future<dynamic> _requestWithRetry(Future<http.Response> Function() requestFunction) async {
+  Future<dynamic> _requestWithRetry(
+    Future<http.Response> Function() requestFunction,
+  ) async {
     http.Response response;
     try {
       response = await requestFunction();
@@ -173,32 +178,66 @@ class HttpService {
   }
 
   /// ✅ **GET Request with Query Parameters**
-  Future<dynamic> getRequest(String endpoint, {Map<String, String>? params, Map<String, String>? headers}) async {
+  Future<dynamic> getRequest(
+    String endpoint, {
+    Map<String, String>? params,
+    Map<String, String>? headers,
+  }) async {
     Uri url = Uri.parse('$baseUrl$endpoint').replace(queryParameters: params);
-    return _requestWithRetry(() => http.get(url, headers: getHeaders(extraHeaders: headers)));
+    return _requestWithRetry(
+      () => http.get(url, headers: getHeaders(extraHeaders: headers)),
+    );
   }
 
   /// ✅ **POST Request (JSON)**
-  Future<dynamic> postRequest(String endpoint, Map<String, dynamic> data, {Map<String, String>? headers}) async {
+  Future<dynamic> postRequest(
+    String endpoint,
+    Map<String, dynamic> data, {
+    Map<String, String>? headers,
+  }) async {
     Uri url = Uri.parse('$baseUrl$endpoint');
-    return _requestWithRetry(() => http.post(url, headers: getHeaders(extraHeaders: headers), body: jsonEncode(data)));
+    return _requestWithRetry(
+      () => http.post(
+        url,
+        headers: getHeaders(extraHeaders: headers),
+        body: jsonEncode(data),
+      ),
+    );
   }
 
   /// ✅ **PATCH Request (JSON)**
-  Future<dynamic> patchRequest(String endpoint, Map<String, dynamic> data, {Map<String, String>? headers}) async {
+  Future<dynamic> patchRequest(
+    String endpoint,
+    Map<String, dynamic> data, {
+    Map<String, String>? headers,
+  }) async {
     Uri url = Uri.parse('$baseUrl$endpoint');
-    return _requestWithRetry(() => http.patch(url, headers: getHeaders(extraHeaders: headers), body: jsonEncode(data)));
+    return _requestWithRetry(
+      () => http.patch(
+        url,
+        headers: getHeaders(extraHeaders: headers),
+        body: jsonEncode(data),
+      ),
+    );
   }
 
   /// ✅ **POST File Upload (Image/Video) + Data**
-  Future<dynamic> uploadFile(String endpoint, File file, String fieldName, Map<String, dynamic> data, {Map<String, String>? headers}) async {
+  Future<dynamic> uploadFile(
+    String endpoint,
+    File file,
+    String fieldName,
+    Map<String, dynamic> data, {
+    Map<String, String>? headers,
+  }) async {
     Uri url = Uri.parse('$baseUrl$endpoint');
     try {
       var request = http.MultipartRequest('POST', url);
       request.headers.addAll(getHeaders(extraHeaders: headers));
 
       // Add file
-      request.files.add(await http.MultipartFile.fromPath(fieldName, file.path));
+      request.files.add(
+        await http.MultipartFile.fromPath(fieldName, file.path),
+      );
 
       // Add other form fields
       data.forEach((key, value) {
@@ -211,7 +250,13 @@ class HttpService {
       if (response.statusCode == 401) {
         bool refreshed = await _refreshToken();
         if (refreshed) {
-          return uploadFile(endpoint, file, fieldName, data, headers: headers); // Retry after refresh
+          return uploadFile(
+            endpoint,
+            file,
+            fieldName,
+            data,
+            headers: headers,
+          ); // Retry after refresh
         } else {
           _redirectToLogin();
           return null;
@@ -243,7 +288,11 @@ class HttpService {
     if (refreshToken == null) return false;
     try {
       Uri url = Uri.parse('$baseUrl/auth/refresh');
-      final response = await http.post(url, headers: {'Content-Type': 'application/json'}, body: jsonEncode({'refresh_token': refreshToken}));
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'refresh_token': refreshToken}),
+      );
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);

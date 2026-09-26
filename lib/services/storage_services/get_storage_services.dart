@@ -3,97 +3,80 @@ import 'package:flutter_getx_project_template/utils/error_log.dart';
 import 'package:get_storage/get_storage.dart';
 
 class GetStorageServices {
-  GetStorageServices._privateConstructor();
-  static final GetStorageServices _instance = GetStorageServices._privateConstructor();
+  GetStorageServices._();
+  static final GetStorageServices _instance = GetStorageServices._();
   static GetStorageServices get instance => _instance;
 
-  ////////////// storage initial
-  GetStorage box = GetStorage();
+  final GetStorage box = GetStorage();
 
-  ////////////////  token
   Future<void> setToken(String value) async {
     try {
       await box.write(AppStorageKey.instance.token, value);
       await box.save();
     } catch (e) {
-      errorLog("set token ", e);
+      errorLog("set token", e);
     }
   }
 
   String getToken() {
     try {
       return box.read(AppStorageKey.instance.token) ?? "";
-    } catch (e) {
-      errorLog("get token", e);
+    } catch (_) {
       return "";
     }
   }
 
-  ///////////////////////  on board screen
+  bool isLoggedIn() => getToken().trim().isNotEmpty;
 
-  Future<void> setOnboardScreen() async {
+  Future<void> saveUserSession({
+    required String token,
+    String? userName,
+    String? email,
+  }) async {
     try {
-      await box.write(AppStorageKey.instance.onboard, true);
+      await box.write(AppStorageKey.instance.token, token);
+      if (userName != null) {
+        await box.write(AppStorageKey.instance.userData, userName);
+      }
+      if (email != null) {
+        await box.write(AppStorageKey.instance.userRole, email);
+      }
       await box.save();
     } catch (e) {
-      errorLog("setOnboardScreen", e);
+      errorLog("saveUserSession", e);
     }
   }
 
-  bool getOnboardScreen() {
-    try {
-      return box.read(AppStorageKey.instance.onboard) ?? false;
-    } catch (e) {
-      errorLog("getOnboardScreen", e);
-      return false;
-    }
-  }
+  String getUserName() => box.read(AppStorageKey.instance.userData) ?? "User";
 
-  /////////////////////  user role
-  Future<void> setUserRole(String value) async {
-    try {
-      await box.write(AppStorageKey.instance.userRole, value);
-    } catch (e) {
-      errorLog("set user role", e);
-    }
-  }
+  Future<void> setOnboardScreen() async =>
+      box.write(AppStorageKey.instance.onboard, true);
 
-  String? getUserRole() {
-    try {
-      return box.read(AppStorageKey.instance.userRole);
-    } catch (e) {
-      errorLog("get user role", e);
-      return "";
-    }
-  }
+  bool getOnboardScreen() => box.read(AppStorageKey.instance.onboard) ?? false;
 
-  ////////////  get language
-  String? getLanguage() {
-    return box.read(AppStorageKey.instance.language);
-  }
+  Future<void> setUserRole(String value) async =>
+      box.write(AppStorageKey.instance.userRole, value);
 
-  ////////////  set language
-  Future<void> setLanguage(String value) async {
-    await box.write(AppStorageKey.instance.language, value);
-  }
+  String? getUserRole() => box.read(AppStorageKey.instance.userRole);
 
-  ////////////  get country
-  String getCountry() {
-    return box.read(AppStorageKey.instance.country) ?? "";
-  }
+  String? getLanguage() => box.read(AppStorageKey.instance.language);
 
-  ////////////  set country
-  Future<void> setCountry(String value) async {
-    await box.write(AppStorageKey.instance.country, value);
-  }
+  Future<void> setLanguage(String value) async =>
+      box.write(AppStorageKey.instance.language, value);
 
-  ///logout
+  String getCountry() => box.read(AppStorageKey.instance.country) ?? "";
+
+  Future<void> setCountry(String value) async =>
+      box.write(AppStorageKey.instance.country, value);
+
   Future<void> storageClear() async {
     try {
-      await box.write(AppStorageKey.instance.token, "");
-      await setLanguage("en_US");
+      await box.remove(AppStorageKey.instance.token);
+      await box.remove(AppStorageKey.instance.userData);
+      await box.remove(AppStorageKey.instance.userRole);
+      await box.save();
     } catch (e) {
-      errorLog("logout", e);
+      errorLog("storageClear", e);
     }
   }
 }

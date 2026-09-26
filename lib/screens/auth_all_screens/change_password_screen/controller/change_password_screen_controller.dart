@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 
 class ChangePasswordScreenController extends GetxController {
   ///////////////////  object
-  TextEditingController oldPasswordTextEditingController = TextEditingController();
-  TextEditingController newPasswordTextEditingController = TextEditingController();
-  TextEditingController confirmPasswordTextEditingController = TextEditingController();
+  TextEditingController oldPasswordTextEditingController =
+      TextEditingController();
+  TextEditingController newPasswordTextEditingController =
+      TextEditingController();
+  TextEditingController confirmPasswordTextEditingController =
+      TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void checkData() {

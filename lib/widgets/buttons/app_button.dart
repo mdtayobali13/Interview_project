@@ -57,13 +57,28 @@ class AppButton extends StatelessWidget {
             decoration ??
             BoxDecoration(
               color: backgroundColor ?? AppColors.instance.primary,
-              border: border ?? Border.all(color: borderColor ?? AppColors.instance.primary),
-              borderRadius: BorderRadius.circular(AppSize.width(value: AppSize.width(value: 8.0))),
+              border:
+                  border ??
+                  Border.all(color: borderColor ?? AppColors.instance.primary),
+              borderRadius: BorderRadius.circular(
+                AppSize.width(value: AppSize.width(value: 8.0)),
+              ),
             ),
         child:
             isLoading
-                ? SizedBox(width: loadingSize ?? Get.height * 0.04, height: loadingSize ?? Get.height * 0.04, child: CircularProgressIndicator(color: loaderColor ?? AppColors.instance.white50))
-                : child ?? AppText(data: title ?? "", color: titleColor ?? AppColors.instance.white50, fontWeight: FontWeight.w700),
+                ? SizedBox(
+                  width: loadingSize ?? Get.height * 0.04,
+                  height: loadingSize ?? Get.height * 0.04,
+                  child: CircularProgressIndicator(
+                    color: loaderColor ?? AppColors.instance.white50,
+                  ),
+                )
+                : child ??
+                    AppText(
+                      data: title ?? "",
+                      color: titleColor ?? AppColors.instance.white50,
+                      fontWeight: FontWeight.w700,
+                    ),
       ),
     );
   }

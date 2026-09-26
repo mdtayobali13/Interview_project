@@ -82,11 +82,26 @@ class AppImage extends StatelessWidget {
             isZomBle
                 ? () {
                   if (isZomBle) {
-                    _showFullScreenImage(context, NetworkImageWithRetry(key: UniqueKey(), imageUrl: url!, width: width, height: height, fit: fit));
+                    _showFullScreenImage(
+                      context,
+                      NetworkImageWithRetry(
+                        key: UniqueKey(),
+                        imageUrl: url!,
+                        width: width,
+                        height: height,
+                        fit: fit,
+                      ),
+                    );
                   }
                 }
                 : null,
-        child: NetworkImageWithRetry(key: UniqueKey(), imageUrl: url!, width: width, height: height, fit: fit),
+        child: NetworkImageWithRetry(
+          key: UniqueKey(),
+          imageUrl: url!,
+          width: width,
+          height: height,
+          fit: fit,
+        ),
       );
     }
 
@@ -134,7 +149,8 @@ class AppImage extends StatelessWidget {
       height: height,
       color: color ?? AppColors.instance.white200,
       child: Image.asset(
-        networkPlaceholderImage ?? AppAssertImage.instance.networkPlaceholderImage,
+        networkPlaceholderImage ??
+            AppAssertImage.instance.networkPlaceholderImage,
         width: width,
         height: height,
         fit: fit,
@@ -148,11 +164,21 @@ class AppImage extends StatelessWidget {
   }
 
   Widget _errorPlaceholder() {
-    return Container(width: width, height: height, color: color, child: const Center(child: Icon(Icons.image_not_supported)));
+    return Container(
+      width: width,
+      height: height,
+      color: color,
+      child: const Center(child: Icon(Icons.image_not_supported)),
+    );
   }
 
   void _showFullScreenImage(BuildContext context, Widget imageWidget) {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImageViewer(image: imageWidget)));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FullScreenImageViewer(image: imageWidget),
+      ),
+    );
   }
 }
 
@@ -165,7 +191,8 @@ class FullScreenImageViewer extends StatefulWidget {
   State<FullScreenImageViewer> createState() => _FullScreenImageViewerState();
 }
 
-class _FullScreenImageViewerState extends State<FullScreenImageViewer> with SingleTickerProviderStateMixin {
+class _FullScreenImageViewerState extends State<FullScreenImageViewer>
+    with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   Animation<Matrix4>? zoomAnimation;
   late TransformationController transformationController;
@@ -174,7 +201,10 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> with Sing
     try {
       transformationController = TransformationController();
 
-      animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 300))..addListener(() {
+      animationController = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 300),
+      )..addListener(() {
         transformationController.value = zoomAnimation!.value;
       });
     } catch (e) {
@@ -187,19 +217,31 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> with Sing
   }
 
   void handleDoubleTap() {
-    final newValue = transformationController.value.isIdentity() ? _applyZoom() : _revertZoom();
+    final newValue =
+        transformationController.value.isIdentity()
+            ? _applyZoom()
+            : _revertZoom();
 
-    zoomAnimation = Matrix4Tween(begin: transformationController.value, end: newValue).animate(CurveTween(curve: Curves.ease).animate(animationController));
+    zoomAnimation = Matrix4Tween(
+      begin: transformationController.value,
+      end: newValue,
+    ).animate(CurveTween(curve: Curves.ease).animate(animationController));
     animationController.forward(from: 0);
   }
 
   Matrix4 _applyZoom() {
     final tapPosition = doubleTapDetails!.localPosition;
-    const translationCorrection = 2 - 1; // This is effectively 1, which can be removed for clarity.
+    const translationCorrection =
+        2 - 1; // This is effectively 1, which can be removed for clarity.
     final zoomed =
         Matrix4.identity()
-          ..translate(-tapPosition.dx * translationCorrection, -tapPosition.dy * translationCorrection)
-          ..scale(2.0); // Ensure you pass a double value for the scaling factor.
+          // ignore: deprecated_member_use
+          ..translate(
+            -tapPosition.dx * translationCorrection,
+            -tapPosition.dy * translationCorrection,
+          )
+          // ignore: deprecated_member_use
+          ..scale(2.0);
     return zoomed;
   }
 
@@ -230,11 +272,21 @@ class _FullScreenImageViewerState extends State<FullScreenImageViewer> with Sing
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(backgroundColor: Colors.black, elevation: 0, leading: IconButton(icon: const Icon(Icons.close, color: Colors.white), onPressed: () => Navigator.of(context).pop())),
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.close, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
       body: GestureDetector(
         onDoubleTapDown: handleDoubleTapDown,
         onDoubleTap: handleDoubleTap,
-        child: InteractiveViewer(transformationController: transformationController, child: Center(child: widget.image)),
+        child: InteractiveViewer(
+          transformationController: transformationController,
+          child: Center(child: widget.image),
+        ),
       ),
     );
   }
@@ -246,13 +298,20 @@ class NetworkImageWithRetry extends StatefulWidget {
   final double? height;
   final BoxFit? fit;
 
-  const NetworkImageWithRetry({super.key, required this.imageUrl, this.fit, this.height, this.width});
+  const NetworkImageWithRetry({
+    super.key,
+    required this.imageUrl,
+    this.fit,
+    this.height,
+    this.width,
+  });
 
   @override
   State<NetworkImageWithRetry> createState() => _NetworkImageWithRetryState();
 }
 
-class _NetworkImageWithRetryState extends State<NetworkImageWithRetry> with AutomaticKeepAliveClientMixin {
+class _NetworkImageWithRetryState extends State<NetworkImageWithRetry>
+    with AutomaticKeepAliveClientMixin {
   int retryCount = 0;
   final int maxRetries = 2;
   late String _image;
@@ -338,13 +397,26 @@ class _NetworkImageWithRetryState extends State<NetworkImageWithRetry> with Auto
         width: widget.width ?? double.infinity,
         height: widget.height,
         color: AppColors.instance.white300,
-        child: Image.asset(AppAssertImage.instance.networkPlaceholderImage, fit: BoxFit.fill),
+        child: Image.asset(
+          AppAssertImage.instance.networkPlaceholderImage,
+          fit: BoxFit.fill,
+        ),
       ),
     );
   }
 
   Widget _errorPlaceholder() {
-    return Container(width: widget.width, height: widget.height, color: AppColors.instance.primary50, child: Center(child: Icon(Icons.image_not_supported, color: AppColors.instance.primary50)));
+    return Container(
+      width: widget.width,
+      height: widget.height,
+      color: AppColors.instance.primary50,
+      child: Center(
+        child: Icon(
+          Icons.image_not_supported,
+          color: AppColors.instance.primary50,
+        ),
+      ),
+    );
   }
 
   @override
@@ -356,7 +428,16 @@ class CustomCacheManager extends CacheManager {
 
   static final CustomCacheManager instance = CustomCacheManager._();
 
-  CustomCacheManager._() : super(Config(key, stalePeriod: const Duration(days: 7), maxNrOfCacheObjects: 300, repo: JsonCacheInfoRepository(databaseName: key), fileService: HttpFileService()));
+  CustomCacheManager._()
+    : super(
+        Config(
+          key,
+          stalePeriod: const Duration(days: 7),
+          maxNrOfCacheObjects: 300,
+          repo: JsonCacheInfoRepository(databaseName: key),
+          fileService: HttpFileService(),
+        ),
+      );
 }
 
 String optimizedImageUrl(String url, {int width = 600, int height = 600}) {

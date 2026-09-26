@@ -97,7 +97,9 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: AppSize.width(value: 20.0)),
+      padding:
+          widget.padding ??
+          EdgeInsets.symmetric(horizontal: AppSize.width(value: 20.0)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -107,10 +109,20 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                AppText(data: widget.title ?? "", fontWeight: FontWeight.w500, color: widget.titleColor ?? AppColors.instance.dark200, fontSize: 18),
+                AppText(
+                  data: widget.title ?? "",
+                  fontWeight: FontWeight.w500,
+                  color: widget.titleColor ?? AppColors.instance.dark200,
+                  fontSize: 18,
+                ),
                 Padding(
                   padding: EdgeInsets.only(right: AppSize.width(value: 10.0)),
-                  child: AppText(data: widget.subTitle ?? "", fontWeight: FontWeight.w400, color: widget.titleColor ?? AppColors.instance.dark200, fontSize: 14),
+                  child: AppText(
+                    data: widget.subTitle ?? "",
+                    fontWeight: FontWeight.w400,
+                    color: widget.titleColor ?? AppColors.instance.dark200,
+                    fontSize: 14,
+                  ),
                 ),
               ],
             ),
@@ -152,9 +164,12 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
                       if (value.toString().isEmail) return null;
                       return "Please provide a valid email address";
                     }
-                    if (widget.isPassWord && widget.isPassWordSecondValidation) {
+                    if (widget.isPassWord &&
+                        widget.isPassWordSecondValidation) {
                       if (widget.isPassWordSecondValidationController != null) {
-                        if (value.toLowerCase() != widget.isPassWordSecondValidationController!.text.toLowerCase()) {
+                        if (value.toLowerCase() !=
+                            widget.isPassWordSecondValidationController!.text
+                                .toLowerCase()) {
                           return "Both passwords most match";
                         } else {
                           return null;
@@ -170,14 +185,22 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
               obscureText: widget.isPassWord && isShowPassWord,
               obscuringCharacter: "*",
               textAlignVertical: TextAlignVertical.top,
-              style: widget.style ?? Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.instance.dark300, fontWeight: FontWeight.w400, fontSize: 16),
+              style:
+                  widget.style ??
+                  Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: AppColors.instance.dark300,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
               textAlign: widget.textAlign,
               decoration: InputDecoration(
                 alignLabelWithHint: widget.alignLabelWithHint,
 
                 hoverColor: AppColors.instance.transparent,
                 filled: true,
-                contentPadding: widget.contentPadding ?? EdgeInsets.all(AppSize.width(value: 15.0)),
+                contentPadding:
+                    widget.contentPadding ??
+                    EdgeInsets.all(AppSize.width(value: 15.0)),
                 fillColor: widget.fillColor ?? AppColors.instance.boxBg,
                 prefixIcon: widget.prefix,
                 suffixIcon:
@@ -195,7 +218,10 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
                                 isShowPassWord = !isShowPassWord;
                               });
                             },
-                            icon: isShowPassWord ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
+                            icon:
+                                isShowPassWord
+                                    ? const Icon(Icons.visibility_off)
+                                    : const Icon(Icons.visibility),
                           ),
                         )
                         : widget.suffixIcon,
@@ -203,17 +229,68 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
                 hintText: widget.hintText,
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 labelText: widget.labelText,
-                hintStyle: widget.hintStyle ?? Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.instance.dark300),
-                labelStyle: widget.hintStyle ?? Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.instance.dark300),
-                errorStyle: TextStyle(color: AppColors.instance.error, fontWeight: FontWeight.w500, fontFamily: AppConstant.instance.font, fontSize: 12),
+                hintStyle:
+                    widget.hintStyle ??
+                    Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: AppColors.instance.dark300,
+                    ),
+                labelStyle:
+                    widget.hintStyle ??
+                    Theme.of(context).textTheme.titleSmall?.copyWith(
+                      color: AppColors.instance.dark300,
+                    ),
+                errorStyle: TextStyle(
+                  color: AppColors.instance.error,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: AppConstant.instance.font,
+                  fontSize: 12,
+                ),
                 border:
-                    widget.border ?? OutlineInputBorder(borderRadius: BorderRadius.circular(AppSize.width(value: 8.0)), borderSide: BorderSide(color: widget.borderColor ?? AppColors.instance.boxBg)),
+                    widget.border ??
+                    OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppSize.width(value: 8.0),
+                      ),
+                      borderSide: BorderSide(
+                        color: widget.borderColor ?? AppColors.instance.boxBg,
+                      ),
+                    ),
                 enabledBorder:
-                    widget.border ?? OutlineInputBorder(borderRadius: BorderRadius.circular(AppSize.width(value: 8.0)), borderSide: BorderSide(color: widget.borderColor ?? AppColors.instance.boxBg)),
+                    widget.border ??
+                    OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppSize.width(value: 8.0),
+                      ),
+                      borderSide: BorderSide(
+                        color: widget.borderColor ?? AppColors.instance.boxBg,
+                      ),
+                    ),
                 focusedBorder:
-                    widget.border ?? OutlineInputBorder(borderRadius: BorderRadius.circular(AppSize.width(value: 8.0)), borderSide: BorderSide(color: widget.borderColor ?? AppColors.instance.boxBg)),
-                errorBorder: widget.errBorder ?? OutlineInputBorder(borderRadius: BorderRadius.circular(AppSize.width(value: 8.0)), borderSide: BorderSide(color: AppColors.instance.error)),
-                focusedErrorBorder: widget.errBorder ?? OutlineInputBorder(borderRadius: BorderRadius.circular(AppSize.width(value: 8.0)), borderSide: BorderSide(color: AppColors.instance.error)),
+                    widget.border ??
+                    OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppSize.width(value: 8.0),
+                      ),
+                      borderSide: BorderSide(
+                        color: widget.borderColor ?? AppColors.instance.boxBg,
+                      ),
+                    ),
+                errorBorder:
+                    widget.errBorder ??
+                    OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppSize.width(value: 8.0),
+                      ),
+                      borderSide: BorderSide(color: AppColors.instance.error),
+                    ),
+                focusedErrorBorder:
+                    widget.errBorder ??
+                    OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(
+                        AppSize.width(value: 8.0),
+                      ),
+                      borderSide: BorderSide(color: AppColors.instance.error),
+                    ),
               ),
             ),
           ),

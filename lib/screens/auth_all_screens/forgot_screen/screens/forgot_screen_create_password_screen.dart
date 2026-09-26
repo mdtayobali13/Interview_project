@@ -29,14 +29,24 @@ class ForgotScreenCreatePasswordScreen extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      AppImage(path: AppAssertImage.instance.forgotCreatePassword, width: AppSize.size.width * 0.6),
+                      AppImage(
+                        path: AppAssertImage.instance.forgotCreatePassword,
+                        width: AppSize.size.width * 0.6,
+                      ),
 
                       Column(
                         children: [
                           Gap(height: 10),
-                          AppText(data: "Create new password", fontSize: 25, fontWeight: FontWeight.w500),
+                          AppText(
+                            data: "Create new password",
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                          ),
                           Gap(height: 5),
-                          AppText(data: "Password must have 8 characters", color: AppColors.instance.subTextColor),
+                          AppText(
+                            data: "Password must have 8 characters",
+                            color: AppColors.instance.subTextColor,
+                          ),
                           Gap(height: 50),
                         ],
                       ),
@@ -47,20 +57,28 @@ class ForgotScreenCreatePasswordScreen extends StatelessWidget {
                         hintText: "Enter your new password",
                         isPassWord: true,
                         maxLines: 1,
-                        prefix: Icon(Icons.lock_outline, color: AppColors.instance.dark200),
+                        prefix: Icon(
+                          Icons.lock_outline,
+                          color: AppColors.instance.dark200,
+                        ),
                       ),
                       Gap(height: AppSize.height(value: 20)),
                       AppInputWidget(
-                        controller: controller.confirmPasswordTextEditingController,
+                        controller:
+                            controller.confirmPasswordTextEditingController,
                         isPassWordSecondValidation: true,
-                        isPassWordSecondValidationController: controller.passwordTextEditingController,
+                        isPassWordSecondValidationController:
+                            controller.passwordTextEditingController,
                         borderColor: AppColors.instance.boxBg,
                         labelText: "Confirm new Password",
                         hintText: "Enter new confirm password",
                         isPassWord: true,
                         maxLines: 1,
                         textInputAction: TextInputAction.done,
-                        prefix: Icon(Icons.lock_outline, color: AppColors.instance.dark200),
+                        prefix: Icon(
+                          Icons.lock_outline,
+                          color: AppColors.instance.dark200,
+                        ),
                       ),
                     ],
                   ),

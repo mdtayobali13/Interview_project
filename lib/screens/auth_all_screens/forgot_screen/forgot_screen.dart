@@ -18,7 +18,11 @@ class ForgotScreen extends StatelessWidget {
           return PageView(
             physics: const NeverScrollableScrollPhysics(),
             controller: controller.pageController,
-            children: [ForgotEmailInputScreen(), ForgotOtpInputScreen(), ForgotScreenCreatePasswordScreen()],
+            children: [
+              ForgotEmailInputScreen(),
+              ForgotOtpInputScreen(),
+              ForgotScreenCreatePasswordScreen(),
+            ],
           );
         },
       ),

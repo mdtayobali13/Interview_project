@@ -1,119 +1,124 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:flutter_getx_project_template/constant/app_assert_image.dart';
 import 'package:flutter_getx_project_template/constant/app_colors.dart';
-import 'package:flutter_getx_project_template/routes/app_routes.dart';
-import 'package:flutter_getx_project_template/screens/auth_all_screens/login_screen/controller/login_screen_controller.dart';
-import 'package:flutter_getx_project_template/utils/app_size.dart';
-import 'package:flutter_getx_project_template/utils/gap.dart';
-import 'package:flutter_getx_project_template/widgets/app_image/app_image.dart';
-import 'package:flutter_getx_project_template/widgets/buttons/app_button.dart';
-import 'package:flutter_getx_project_template/widgets/inputs/app_input_widget.dart';
-import 'package:flutter_getx_project_template/widgets/texts/app_text.dart';
+import 'package:flutter_getx_project_template/controllers/auth_controller.dart';
+import 'package:flutter_getx_project_template/screens/auth_all_screens/login_screen/widgets/login_button_widget.dart';
+import 'package:flutter_getx_project_template/screens/auth_all_screens/login_screen/widgets/login_error_banner.dart';
+import 'package:flutter_getx_project_template/screens/auth_all_screens/login_screen/widgets/login_form_fields.dart';
+import 'package:flutter_getx_project_template/screens/auth_all_screens/login_screen/widgets/login_header_widget.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-      init: LoginScreenController(),
-      builder: (controller) {
-        return Scaffold(
-          body: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSize.width(value: 20.0)),
-              child: SizedBox(
-                width: AppSize.size.width,
-                child: Form(
-                  key: controller.formKey,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      spacing: AppSize.height(value: 30),
-                      children: [
-                        Gap(height: AppSize.height(value: 10)),
-                        AppImage(path: AppAssertImage.instance.logo, width: AppSize.size.width * 0.6),
+    final controller = Get.put(AuthController());
 
-                        Column(
-                          children: [
-                            AppText(data: "Welcome!", fontSize: 40, fontWeight: FontWeight.w500),
+    return Scaffold(
+      backgroundColor: AppColors.instance.scaffoldBg,
+      body: Stack(
+        children: [
+          // Background ambient soft glow circles
+          Positioned(
+            top: -50,
+            right: -50,
+            child: Container(
+              width: 240,
+              height: 240,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    AppColors.instance.primary100.withValues(alpha: 0.5),
+                    AppColors.instance.primary50.withValues(alpha: 0.0),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: -70,
+            left: -50,
+            child: Container(
+              width: 260,
+              height: 260,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    AppColors.instance.blue2_100.withValues(alpha: 0.4),
+                    AppColors.instance.blue2_50.withValues(alpha: 0.0),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
-                            AppText(data: "Sign in to continue", fontSize: 25, fontWeight: FontWeight.w200),
-                            Gap(height: AppSize.height(value: 20)),
-                          ],
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 440),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+                    decoration: BoxDecoration(
+                      color: AppColors.instance.cardBg,
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: AppColors.instance.border),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFF0F172A).withValues(alpha: 0.06),
+                          blurRadius: 28,
+                          offset: const Offset(0, 10),
                         ),
-
-                        SizedBox(
-                          height: AppSize.size.height * 0.3,
-                          child: Column(
-                            children: [
-                              AppInputWidget(
-                                controller: controller.emailTextEditingController,
-                                borderColor: AppColors.instance.boxBg,
-                                labelText: "Email",
-                                hintText: "Enter your email",
-                                keyboardType: TextInputType.emailAddress,
-                                isEmail: true,
-                                prefix: Icon(Icons.email_outlined, color: AppColors.instance.dark200),
-                              ),
-                              Gap(height: AppSize.height(value: 20)),
-                              AppInputWidget(
-                                controller: controller.passwordTextEditingController,
-                                borderColor: AppColors.instance.boxBg,
-                                labelText: "Password",
-                                hintText: "Enter your password",
-                                isPassWord: true,
-                                textInputAction: TextInputAction.done,
-                                maxLines: 1,
-                                prefix: Icon(Icons.lock_outline, color: AppColors.instance.dark200),
-                              ),
-                              Gap(height: AppSize.height(value: 20)),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.instance.forgotScreen);
-                                  },
-                                  child: AppText(data: "Forgot Password?", color: AppColors.instance.primary500, fontWeight: FontWeight.bold, fontSize: 16),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            AppButton(
-                              title: "Login",
-                              onTap: () {
-                                controller.checkValidation();
-                              },
-                            ),
-
-                            Gap(height: AppSize.height(value: 20)),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                      ],
+                    ),
+                    child: Form(
+                      key: controller.formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const LoginHeaderWidget(),
+                          const SizedBox(height: 24),
+                          LoginErrorBanner(controller: controller),
+                          LoginFormFields(controller: controller),
+                          const SizedBox(height: 24),
+                          LoginButtonWidget(controller: controller),
+                          const SizedBox(height: 18),
+                          Center(
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                AppText(data: "Don't have an account? ", color: AppColors.instance.dark200, fontSize: 16),
-                                GestureDetector(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.instance.signUpScreen);
-                                  },
-                                  child: AppText(data: "Sign up", color: AppColors.instance.primary500, fontSize: 16, fontWeight: FontWeight.bold),
+                                Icon(
+                                  Icons.lock_rounded,
+                                  size: 13,
+                                  color: AppColors.instance.subTextColor,
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  'Protected by 256-bit SSL encryption',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColors.instance.subTextColor,
+                                  ),
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                        Gap(height: AppSize.height(value: 50)),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

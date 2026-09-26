@@ -17,10 +17,17 @@ Future<void> main() async {
   ///////////// internet connectivity status check
   await ConnectivityService().initConnectivity();
   ///////////// devices orientation set
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
+  ]);
   //////////// app navigation style set
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(systemNavigationBarColor: AppColors.instance.transparent, statusBarColor: AppColors.instance.transparent, systemNavigationBarDividerColor: Colors.transparent),
+    SystemUiOverlayStyle(
+      systemNavigationBarColor: AppColors.instance.transparent,
+      statusBarColor: AppColors.instance.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+    ),
   );
   ////////////////  get storage
   await GetStorage.init();
@@ -36,6 +43,8 @@ Future<void> main() async {
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
-    return super.createHttpClient(context)..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

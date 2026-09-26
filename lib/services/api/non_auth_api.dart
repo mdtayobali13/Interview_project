@@ -23,7 +23,16 @@ class NonAuthApi {
           return handler.next(error); // Continue with error
         },
       ),
-      if (kDebugMode) PrettyDioLogger(requestHeader: true, request: true, compact: true, error: true, requestBody: true, responseHeader: true, responseBody: true),
+      if (kDebugMode)
+        PrettyDioLogger(
+          requestHeader: true,
+          request: true,
+          compact: true,
+          error: true,
+          requestBody: true,
+          responseHeader: true,
+          responseBody: true,
+        ),
     });
   }
   Dio get sendRequest => _dio;

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:flutter_getx_project_template/routes/app_routes.dart';
 import 'package:flutter_getx_project_template/services/storage_services/get_storage_services.dart';
 import 'package:flutter_getx_project_template/utils/error_log.dart';
+import 'package:get/get.dart';
 
 class SplashScreenController extends GetxController {
-  ////////////  object
-  GetStorageServices storageServices = GetStorageServices.instance;
-  RxDouble animation = 0.0.obs;
-  RxDouble animation2 = 0.0.obs;
+  final RxDouble animation = 0.0.obs;
+  final RxDouble animation2 = 0.0.obs;
 
   Future<void> onInitialDataLoadScreen() async {
     try {
@@ -17,25 +15,23 @@ class SplashScreenController extends GetxController {
         animation2.value = 1.0;
       });
 
-      var value = storageServices.getOnboardScreen();
-      Future.delayed(Duration(seconds: 3), () {
-        if (value) {
-          Get.offAllNamed(AppRoutes.instance.appNavigationScreen);
-        } else {
-          Get.offAllNamed(AppRoutes.instance.wellCome);
-        }
-      });
+      await Future.delayed(const Duration(milliseconds: 1200));
+
+      final isLoggedIn = GetStorageServices.instance.isLoggedIn();
+      if (isLoggedIn) {
+        Get.offAllNamed(AppRoutes.customers);
+      } else {
+        Get.offAllNamed(AppRoutes.login);
+      }
     } catch (e) {
-      errorLog("onInitialDataLoadScreen", e);
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.offAllNamed(AppRoutes.instance.errorScreen);
-      });
+      errorLog("SplashScreenController onInitialDataLoadScreen", e);
+      Get.offAllNamed(AppRoutes.login);
     }
   }
 
   @override
   void onInit() {
-    onInitialDataLoadScreen();
     super.onInit();
+    onInitialDataLoadScreen();
   }
 }

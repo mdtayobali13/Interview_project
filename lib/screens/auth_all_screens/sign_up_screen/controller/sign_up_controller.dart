@@ -10,12 +10,16 @@ class SignUpController extends GetxController {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController locationTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
-  TextEditingController confirmPasswordTextEditingController = TextEditingController();
+  TextEditingController confirmPasswordTextEditingController =
+      TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   void checkValidation() {
     if (formKey.currentState!.validate()) {
-      Get.toNamed(AppRoutes.instance.otpVerificationScreen, arguments: emailTextEditingController.text);
+      Get.toNamed(
+        AppRoutes.instance.otpVerificationScreen,
+        arguments: emailTextEditingController.text,
+      );
     }
   }
 

@@ -3,7 +3,11 @@ import 'package:flutter_getx_project_template/utils/app_size.dart';
 import 'package:flutter_getx_project_template/utils/error_log.dart';
 import 'package:get/get.dart';
 
-void customDialogShow({required Widget dialogContent, EdgeInsets? insetPadding, void Function()? onTap}) {
+void customDialogShow({
+  required Widget dialogContent,
+  EdgeInsets? insetPadding,
+  void Function()? onTap,
+}) {
   showDialog(
     context: Get.context!,
     barrierDismissible: true,
@@ -51,13 +55,22 @@ Future<void> _closeDialog(BuildContext context) async {
   }
 }
 
-class _CustomDialogState extends State<_CustomDialog> with TickerProviderStateMixin {
+class _CustomDialogState extends State<_CustomDialog>
+    with TickerProviderStateMixin {
   onInitialDataSetUp() {
     try {
       _isDismissed = false;
-      _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+      _animationController = AnimationController(
+        vsync: this,
+        duration: const Duration(milliseconds: 500),
+      );
       if (_animationController != null) {
-        _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _animationController!, curve: Curves.easeInOut));
+        _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: _animationController!,
+            curve: Curves.easeInOut,
+          ),
+        );
         _animationController!.forward();
       }
     } catch (e) {
@@ -91,7 +104,10 @@ class _CustomDialogState extends State<_CustomDialog> with TickerProviderStateMi
       child: AnimatedBuilder(
         animation: _animationController!,
         builder: (context, child) {
-          return Transform.scale(scale: _scaleAnimation!.value, child: widget.dialogContent);
+          return Transform.scale(
+            scale: _scaleAnimation!.value,
+            child: widget.dialogContent,
+          );
         },
       ),
     );
@@ -103,7 +119,11 @@ class _CustomDialogState extends State<_CustomDialog> with TickerProviderStateMi
       backgroundColor: Colors.transparent,
       insetAnimationCurve: Curves.ease,
       insetPadding: EdgeInsets.symmetric(horizontal: AppSize.width(value: 15)),
-      child: SizedBox(width: AppSize.size.width, height: AppSize.size.height, child: _buildDialogContent(context)),
+      child: SizedBox(
+        width: AppSize.size.width,
+        height: AppSize.size.height,
+        child: _buildDialogContent(context),
+      ),
     );
   }
 }

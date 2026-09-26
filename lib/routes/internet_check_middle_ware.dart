@@ -10,7 +10,9 @@ import 'package:flutter_getx_project_template/utils/error_log.dart';
 bool _isNavigating = false;
 
 class InternetCheckMiddleWare extends GetMiddleware {
-  ConnectivityService connectivityService = Get.putOrFind<ConnectivityService>(() => ConnectivityService());
+  ConnectivityService connectivityService = Get.putOrFind<ConnectivityService>(
+    () => ConnectivityService(),
+  );
 
   List<ConnectivityResult> result = <ConnectivityResult>[];
   InternetCheckMiddleWare() {
@@ -21,14 +23,21 @@ class InternetCheckMiddleWare extends GetMiddleware {
     try {
       // Listen to connectivity changes
       ///////////////////// production time un-comment
-      connectivityService.connectivity.onConnectivityChanged.listen((data) async {
+      connectivityService.connectivity.onConnectivityChanged.listen((
+        data,
+      ) async {
         result = <ConnectivityResult>[];
         result.addAll(data);
-        if (data.contains(ConnectivityResult.none) && !_isNavigating && Get.currentRoute != AppRoutes.instance.errorScreen) {
+        if (data.contains(ConnectivityResult.none) &&
+            !_isNavigating &&
+            Get.currentRoute != AppRoutes.instance.errorScreen) {
           _isNavigating = true;
 
-          if (AppRoutes.instance.errorScreen.isNotEmpty && Get.currentRoute != AppRoutes.instance.errorScreen) {
-            await Get.offAllNamed(AppRoutes.instance.errorScreen)?.then((value) {
+          if (AppRoutes.instance.errorScreen.isNotEmpty &&
+              Get.currentRoute != AppRoutes.instance.errorScreen) {
+            await Get.offAllNamed(AppRoutes.instance.errorScreen)?.then((
+              value,
+            ) {
               _isNavigating = false;
             });
           }
@@ -41,7 +50,9 @@ class InternetCheckMiddleWare extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    if (connectivityService.connectionStatus.contains(ConnectivityResult.none)) {
+    if (connectivityService.connectionStatus.contains(
+      ConnectivityResult.none,
+    )) {
       return RouteSettings(name: AppRoutes.instance.errorScreen);
     }
     // return super.redirect(route);
@@ -50,15 +61,22 @@ class InternetCheckMiddleWare extends GetMiddleware {
 
   @override
   GetPage? onPageCalled(GetPage? page) {
-    if (connectivityService.connectionStatus.contains(ConnectivityResult.none)) {
-      return GetPage(name: AppRoutes.instance.errorScreen, page: () => const ErrorScreen());
+    if (connectivityService.connectionStatus.contains(
+      ConnectivityResult.none,
+    )) {
+      return GetPage(
+        name: AppRoutes.instance.errorScreen,
+        page: () => const ErrorScreen(),
+      );
     }
     return super.onPageCalled(page);
   }
 
   @override
   GetPageBuilder? onPageBuildStart(GetPageBuilder? page) {
-    if (connectivityService.connectionStatus.contains(ConnectivityResult.none)) {
+    if (connectivityService.connectionStatus.contains(
+      ConnectivityResult.none,
+    )) {
       return () => const ErrorScreen();
     }
     return super.onPageBuildStart(page);
@@ -66,7 +84,9 @@ class InternetCheckMiddleWare extends GetMiddleware {
 
   @override
   FutureOr<RouteDecoder?> redirectDelegate(RouteDecoder route) {
-    if (connectivityService.connectionStatus.contains(ConnectivityResult.none)) {
+    if (connectivityService.connectionStatus.contains(
+      ConnectivityResult.none,
+    )) {
       return RouteDecoder.fromRoute(AppRoutes.instance.errorScreen);
     } else {
       return super.redirectDelegate(route);
@@ -75,7 +95,9 @@ class InternetCheckMiddleWare extends GetMiddleware {
 
   @override
   Widget onPageBuilt(Widget page) {
-    if (connectivityService.connectionStatus.contains(ConnectivityResult.none)) {
+    if (connectivityService.connectionStatus.contains(
+      ConnectivityResult.none,
+    )) {
       return const ErrorScreen();
     } else {
       return super.onPageBuilt(page);

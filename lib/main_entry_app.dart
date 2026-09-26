@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_project_template/routes/app_routes.dart';
 import 'package:flutter_getx_project_template/routes/app_routes_file.dart';
-import 'package:flutter_getx_project_template/screens/error_screen/error_screen.dart';
 import 'package:flutter_getx_project_template/utils/app_theme.dart';
 import 'package:get/get.dart';
 
@@ -18,13 +17,16 @@ class MainEntryApp extends StatelessWidget {
       getPages: appRootRoutesFile,
       theme: appThemeData,
       themeMode: ThemeMode.light,
-      enableLog: true,
+      enableLog: false,
       defaultGlobalState: true,
       transitionDuration: const Duration(microseconds: 100),
       navigatorKey: appNavigatorStateKey,
       builder: (context, child) {
         ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-          return const ErrorScreen();
+          return const Material(
+            color: Colors.transparent,
+            child: SizedBox.shrink(),
+          );
         };
         if (child != null) {
           return child;

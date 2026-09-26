@@ -6,7 +6,8 @@ import 'package:timezone/standalone.dart' as tz;
 
 class AppDateTimeFormate {
   AppDateTimeFormate._privateConstructor();
-  static final AppDateTimeFormate _instance = AppDateTimeFormate._privateConstructor();
+  static final AppDateTimeFormate _instance =
+      AppDateTimeFormate._privateConstructor();
   static AppDateTimeFormate get instance => _instance;
 
   String onlyTime(String? inputDateTime) {
@@ -35,7 +36,20 @@ class AppDateTimeFormate {
       DateTime utcTime = dateTime.toUtc();
       tz.Location location = tz.getLocation(userTimezone ?? 'America/Detroit');
       tz.TZDateTime localTime = tz.TZDateTime.from(utcTime, location);
-      const List<String> monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const List<String> monthNames = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
 
       String month = monthNames[localTime.month - 1];
       int year = localTime.year;
@@ -55,7 +69,20 @@ class AppDateTimeFormate {
       DateTime utcTime = dateTime.toUtc();
       tz.Location location = tz.getLocation(userTimezone ?? 'America/Detroit');
       tz.TZDateTime localTime = tz.TZDateTime.from(utcTime, location);
-      const List<String> monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const List<String> monthNames = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
 
       String month = monthNames[localTime.month - 1];
       int year = localTime.year;
@@ -86,7 +113,20 @@ class AppDateTimeFormate {
 
       // Convert UTC to the user's local time
       tz.TZDateTime localTime = tz.TZDateTime.from(utcTime, location);
-      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      const months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ];
       // Extract month, day, year, hour, and minute
       String month = months[localTime.month - 1];
 

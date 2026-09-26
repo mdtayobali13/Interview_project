@@ -19,7 +19,6 @@ String _getDomain() {
   try {
     if (kDebugMode) {
       localServer;
-      // return localServer;
     }
     return liveServer;
   } catch (e) {

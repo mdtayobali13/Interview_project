@@ -13,9 +13,15 @@ class AppNavigationScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           extendBody: true,
-          body: IndexedStack(index: controller.selectedIndex.value, children: selectedAppUserType == AppUserType.user ? [] : []),
+          body: IndexedStack(
+            index: controller.selectedIndex.value,
+            children: selectedAppUserType == AppUserType.user ? [] : [],
+          ),
 
-          bottomNavigationBar: BottomNavigationBar(onTap: controller.changeIndex, items: selectedAppUserType == AppUserType.user ? [] : []),
+          bottomNavigationBar: BottomNavigationBar(
+            onTap: controller.changeIndex,
+            items: selectedAppUserType == AppUserType.user ? [] : [],
+          ),
         );
       },
     );

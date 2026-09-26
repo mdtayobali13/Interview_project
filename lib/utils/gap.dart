@@ -9,6 +9,9 @@ class Gap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: AppSize.height(value: height ?? 0), width: AppSize.width(value: width ?? 0));
+    return SizedBox(
+      height: AppSize.height(value: height ?? 0),
+      width: AppSize.width(value: width ?? 0),
+    );
   }
 }

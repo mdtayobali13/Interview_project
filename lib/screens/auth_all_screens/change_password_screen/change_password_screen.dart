@@ -17,10 +17,15 @@ class ChangePasswordScreen extends StatelessWidget {
       init: ChangePasswordScreenController(),
       builder: (controller) {
         return Scaffold(
-          appBar: AppBar(title: AppText(data: "Change Password", fontSize: 20), centerTitle: true),
+          appBar: AppBar(
+            title: AppText(data: "Change Password", fontSize: 20),
+            centerTitle: true,
+          ),
 
           body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: AppSize.width(value: 20.0)),
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSize.width(value: 20.0),
+            ),
             child: Form(
               key: controller.formKey,
               child: Column(
@@ -33,7 +38,10 @@ class ChangePasswordScreen extends StatelessWidget {
                     isPassWord: true,
 
                     maxLines: 1,
-                    prefix: Icon(Icons.lock_outline, color: AppColors.instance.dark200),
+                    prefix: Icon(
+                      Icons.lock_outline,
+                      color: AppColors.instance.dark200,
+                    ),
                   ),
                   Gap(height: 20),
                   AppInputWidget(
@@ -43,19 +51,26 @@ class ChangePasswordScreen extends StatelessWidget {
                     isPassWord: true,
 
                     maxLines: 1,
-                    prefix: Icon(Icons.lock_outline, color: AppColors.instance.dark200),
+                    prefix: Icon(
+                      Icons.lock_outline,
+                      color: AppColors.instance.dark200,
+                    ),
                   ),
                   Gap(height: 20),
                   AppInputWidget(
                     isPassWordSecondValidation: true,
-                    isPassWordSecondValidationController: controller.newPasswordTextEditingController,
+                    isPassWordSecondValidationController:
+                        controller.newPasswordTextEditingController,
                     controller: controller.confirmPasswordTextEditingController,
                     borderColor: AppColors.instance.boxBg,
                     labelText: "Confirm New Password",
                     isPassWord: true,
                     textInputAction: TextInputAction.done,
                     maxLines: 1,
-                    prefix: Icon(Icons.lock_outline, color: AppColors.instance.dark200),
+                    prefix: Icon(
+                      Icons.lock_outline,
+                      color: AppColors.instance.dark200,
+                    ),
                   ),
                 ],
               ),
@@ -64,7 +79,9 @@ class ChangePasswordScreen extends StatelessWidget {
 
           bottomNavigationBar: SafeArea(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSize.width(value: 20.0)),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSize.width(value: 20.0),
+              ),
               child: AppButton(
                 title: "Submit",
                 onTap: () {

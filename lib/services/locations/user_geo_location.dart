@@ -34,7 +34,8 @@ Future<Position?> appUserGeoLocation() async {
         return null;
       }
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.deniedForever || permission == LocationPermission.denied) {
+      if (permission == LocationPermission.deniedForever ||
+          permission == LocationPermission.denied) {
         return null;
       }
     }
@@ -49,12 +50,14 @@ Future<Position?> appUserGeoLocation() async {
         //(Optional) Set foreground notification config to keep the app alive
         //when going to the background
         foregroundNotificationConfig: const ForegroundNotificationConfig(
-          notificationText: "Ooh Ah will continue to receive your location even when you using it",
+          notificationText:
+              "Ooh Ah will continue to receive your location even when you using it",
           notificationTitle: "Location Service",
           enableWakeLock: true,
         ),
       );
-    } else if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) {
+    } else if (defaultTargetPlatform == TargetPlatform.iOS ||
+        defaultTargetPlatform == TargetPlatform.macOS) {
       locationSettings = AppleSettings(
         accuracy: LocationAccuracy.high,
         activityType: ActivityType.fitness,
@@ -64,14 +67,23 @@ Future<Position?> appUserGeoLocation() async {
         showBackgroundLocationIndicator: false,
       );
     } else if (kIsWeb) {
-      locationSettings = WebSettings(accuracy: LocationAccuracy.high, distanceFilter: 100, maximumAge: const Duration(minutes: 5));
+      locationSettings = WebSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+        maximumAge: const Duration(minutes: 5),
+      );
     } else {
-      locationSettings = const LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 100);
+      locationSettings = const LocationSettings(
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+      );
     }
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition(locationSettings: locationSettings);
+    return await Geolocator.getCurrentPosition(
+      locationSettings: locationSettings,
+    );
   } catch (e) {
     errorLog("appUserGeoLocation", e);
     // AppSnackBar.error("Location services has problem ");

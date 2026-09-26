@@ -47,7 +47,14 @@ class AppImageCircular extends StatelessWidget {
             height: height,
             fit: fit,
             errorBuilder: (context, error, stackTrace) {
-              return ClipRRect(borderRadius: BorderRadius.circular(borderRadius), child: Container(width: width, height: height, color: AppColors.instance.primary));
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(borderRadius),
+                child: Container(
+                  width: width,
+                  height: height,
+                  color: AppColors.instance.primary,
+                ),
+              );
             },
           ),
         ),
@@ -59,7 +66,13 @@ class AppImageCircular extends StatelessWidget {
         child: Container(
           padding: filledPadding,
           decoration: BoxDecoration(color: filledColor),
-          child: NetworkImageWithRetry(imageUrl: url!, fit: fit, height: height, width: width, borderRadius: borderRadius),
+          child: NetworkImageWithRetry(
+            imageUrl: url!,
+            fit: fit,
+            height: height,
+            width: width,
+            borderRadius: borderRadius,
+          ),
         ),
       );
     }
@@ -75,7 +88,14 @@ class AppImageCircular extends StatelessWidget {
             height: height,
             fit: fit,
             errorBuilder: (context, error, stackTrace) {
-              return ClipRRect(borderRadius: BorderRadius.circular(borderRadius), child: Container(width: width, height: height, color: AppColors.instance.primary));
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(borderRadius),
+                child: Container(
+                  width: width,
+                  height: height,
+                  color: AppColors.instance.primary,
+                ),
+              );
             },
           ),
         ),
@@ -84,7 +104,11 @@ class AppImageCircular extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(borderRadius),
-      child: Container(padding: filledPadding, decoration: BoxDecoration(color: filledColor), child: Container(width: width, height: height, color: color)),
+      child: Container(
+        padding: filledPadding,
+        decoration: BoxDecoration(color: filledColor),
+        child: Container(width: width, height: height, color: color),
+      ),
     );
   }
 }
@@ -96,13 +120,21 @@ class NetworkImageWithRetry extends StatefulWidget {
   final BoxFit? fit;
   final double borderRadius;
 
-  const NetworkImageWithRetry({super.key, required this.imageUrl, this.fit, this.height, this.width, required this.borderRadius});
+  const NetworkImageWithRetry({
+    super.key,
+    required this.imageUrl,
+    this.fit,
+    this.height,
+    this.width,
+    required this.borderRadius,
+  });
 
   @override
   State<NetworkImageWithRetry> createState() => _NetworkImageWithRetryState();
 }
 
-class _NetworkImageWithRetryState extends State<NetworkImageWithRetry> with AutomaticKeepAliveClientMixin {
+class _NetworkImageWithRetryState extends State<NetworkImageWithRetry>
+    with AutomaticKeepAliveClientMixin {
   int retryCount = 0;
   final int maxRetries = 2;
   late String _image;
@@ -179,12 +211,25 @@ class _NetworkImageWithRetryState extends State<NetworkImageWithRetry> with Auto
     return Skeletonizer(
       enabled: true,
       containersColor: AppColors.instance.blue2_50,
-      child: Container(width: widget.width, height: widget.height, color: AppColors.instance.white300, child: Image.asset(AppAssertImage.instance.networkPlaceholderImage, fit: BoxFit.fill)),
+      child: Container(
+        width: widget.width,
+        height: widget.height,
+        color: AppColors.instance.white300,
+        child: Image.asset(
+          AppAssertImage.instance.networkPlaceholderImage,
+          fit: BoxFit.fill,
+        ),
+      ),
     );
   }
 
   Widget _errorPlaceholder() {
-    return Container(width: widget.width, height: widget.height, color: Colors.grey, child: const Center(child: Icon(Icons.image_not_supported)));
+    return Container(
+      width: widget.width,
+      height: widget.height,
+      color: Colors.grey,
+      child: const Center(child: Icon(Icons.image_not_supported)),
+    );
   }
 
   @override
@@ -196,7 +241,16 @@ class CustomCacheManager extends CacheManager {
 
   static final CustomCacheManager instance = CustomCacheManager._();
 
-  CustomCacheManager._() : super(Config(key, stalePeriod: const Duration(days: 7), maxNrOfCacheObjects: 300, repo: JsonCacheInfoRepository(databaseName: key), fileService: HttpFileService()));
+  CustomCacheManager._()
+    : super(
+        Config(
+          key,
+          stalePeriod: const Duration(days: 7),
+          maxNrOfCacheObjects: 300,
+          repo: JsonCacheInfoRepository(databaseName: key),
+          fileService: HttpFileService(),
+        ),
+      );
 }
 
 String optimizedImageUrl(String url, {int width = 600, int height = 600}) {

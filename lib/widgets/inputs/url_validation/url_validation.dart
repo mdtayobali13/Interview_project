@@ -4,7 +4,8 @@ String? getUrlValidation(String? value) {
   try {
     if (value == null) return null;
     final uri = Uri.parse(value);
-    bool response = uri.hasScheme && (uri.scheme == 'http' || uri.scheme == 'https');
+    bool response =
+        uri.hasScheme && (uri.scheme == 'http' || uri.scheme == 'https');
     if (response) return null;
     return "Invalid URL";
   } catch (e) {

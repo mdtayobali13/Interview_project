@@ -23,15 +23,24 @@ class SignUpScreen extends StatelessWidget {
         init: SignUpController(),
         builder: (controller) {
           return Scaffold(
-            appBar: AppBar(title: AppText(data: "Create New Account", fontSize: 18), centerTitle: true, surfaceTintColor: AppColors.instance.white50),
+            appBar: AppBar(
+              title: AppText(data: "Create New Account", fontSize: 18),
+              centerTitle: true,
+              surfaceTintColor: AppColors.instance.white50,
+            ),
             body: SafeArea(
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: AppSize.width(value: 20.0)),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSize.width(value: 20.0),
+                ),
                 child: Form(
                   key: controller.formKey,
                   child: Column(
                     children: [
-                      AppImage(path: AppAssertImage.instance.logo, width: AppSize.size.width * 0.6),
+                      AppImage(
+                        path: AppAssertImage.instance.logo,
+                        width: AppSize.size.width * 0.6,
+                      ),
                       Gap(height: AppSize.height(value: 10)),
                       Obx(
                         () => Row(
@@ -40,31 +49,45 @@ class SignUpScreen extends StatelessWidget {
                             Row(
                               children: [
                                 Gap(width: 30),
+                                // ignore: deprecated_member_use
                                 Radio(
                                   value: true,
+                                  // ignore: deprecated_member_use
                                   groupValue: controller.userTypes.value,
                                   activeColor: AppColors.instance.primary300,
+                                  // ignore: deprecated_member_use
                                   onChanged: (value) {
                                     controller.changeUserType(true);
                                   },
                                 ),
 
-                                AppText(data: "User", fontWeight: FontWeight.bold, fontSize: 20),
+                                AppText(
+                                  data: "User",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
                               ],
                             ),
 
                             Row(
                               children: [
+                                // ignore: deprecated_member_use
                                 Radio(
                                   value: false,
+                                  // ignore: deprecated_member_use
                                   groupValue: controller.userTypes.value,
                                   activeColor: AppColors.instance.primary300,
+                                  // ignore: deprecated_member_use
                                   onChanged: (value) {
                                     controller.changeUserType(false);
                                   },
                                 ),
 
-                                AppText(data: "Agency", fontWeight: FontWeight.bold, fontSize: 20),
+                                AppText(
+                                  data: "Agency",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
                                 Gap(width: 30),
                               ],
                             ),
@@ -77,7 +100,10 @@ class SignUpScreen extends StatelessWidget {
                         borderColor: AppColors.instance.boxBg,
                         labelText: "Full Name",
                         hintText: "Enter full name",
-                        prefix: Icon(Icons.person_outlined, color: AppColors.instance.dark200),
+                        prefix: Icon(
+                          Icons.person_outlined,
+                          color: AppColors.instance.dark200,
+                        ),
                       ),
                       Gap(height: AppSize.height(value: 20)),
                       AppInputWidget(
@@ -87,7 +113,10 @@ class SignUpScreen extends StatelessWidget {
                         hintText: "Enter your e-mail",
                         keyboardType: TextInputType.emailAddress,
                         isEmail: true,
-                        prefix: Icon(Icons.email_outlined, color: AppColors.instance.dark200),
+                        prefix: Icon(
+                          Icons.email_outlined,
+                          color: AppColors.instance.dark200,
+                        ),
                       ),
                       Gap(height: AppSize.height(value: 20)),
                       AppInputWidget(
@@ -95,7 +124,10 @@ class SignUpScreen extends StatelessWidget {
                         borderColor: AppColors.instance.boxBg,
                         labelText: "Location",
                         hintText: "Enter your location",
-                        prefix: Icon(Icons.location_on_outlined, color: AppColors.instance.dark200),
+                        prefix: Icon(
+                          Icons.location_on_outlined,
+                          color: AppColors.instance.dark200,
+                        ),
                       ),
                       Gap(height: AppSize.height(value: 20)),
                       AppInputWidget(
@@ -105,13 +137,18 @@ class SignUpScreen extends StatelessWidget {
                         hintText: "Enter your password",
                         isPassWord: true,
                         maxLines: 1,
-                        prefix: Icon(Icons.lock_outline, color: AppColors.instance.dark200),
+                        prefix: Icon(
+                          Icons.lock_outline,
+                          color: AppColors.instance.dark200,
+                        ),
                       ),
                       Gap(height: AppSize.height(value: 20)),
                       AppInputWidget(
-                        controller: controller.confirmPasswordTextEditingController,
+                        controller:
+                            controller.confirmPasswordTextEditingController,
                         isPassWordSecondValidation: true,
-                        isPassWordSecondValidationController: controller.passwordTextEditingController,
+                        isPassWordSecondValidationController:
+                            controller.passwordTextEditingController,
                         borderColor: AppColors.instance.boxBg,
                         labelText: "Confirm Password",
                         hintText: "Enter your confirm password",
@@ -119,7 +156,10 @@ class SignUpScreen extends StatelessWidget {
                         isPassWord: true,
                         maxLines: 1,
                         textInputAction: TextInputAction.done,
-                        prefix: Icon(Icons.lock_outline, color: AppColors.instance.dark200),
+                        prefix: Icon(
+                          Icons.lock_outline,
+                          color: AppColors.instance.dark200,
+                        ),
                       ),
                       Gap(height: AppSize.height(value: 20)),
 
@@ -127,23 +167,43 @@ class SignUpScreen extends StatelessWidget {
                         () => Row(
                           children: [
                             Theme(
-                              data: ThemeData(unselectedWidgetColor: AppColors.instance.primary200),
+                              data: ThemeData(
+                                unselectedWidgetColor:
+                                    AppColors.instance.primary200,
+                              ),
                               child: Checkbox(
                                 activeColor: AppColors.instance.white50,
 
-                                side: WidgetStateBorderSide.resolveWith((states) {
+                                side: WidgetStateBorderSide.resolveWith((
+                                  states,
+                                ) {
                                   if (states.contains(WidgetState.selected)) {
-                                    return BorderSide(color: AppColors.instance.primary200);
+                                    return BorderSide(
+                                      color: AppColors.instance.primary200,
+                                    );
                                   } else {
-                                    return BorderSide(color: AppColors.instance.dark300);
+                                    return BorderSide(
+                                      color: AppColors.instance.dark300,
+                                    );
                                   }
                                 }),
                                 value: controller.termsAndConditions.value,
                                 checkColor: AppColors.instance.primary200,
-                                fillColor: WidgetStatePropertyAll(AppColors.instance.white50),
-                                shape: RoundedRectangleBorder(side: BorderSide(color: AppColors.instance.primary200), borderRadius: BorderRadius.circular(AppSize.width(value: 5.0))),
+                                fillColor: WidgetStatePropertyAll(
+                                  AppColors.instance.white50,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  side: BorderSide(
+                                    color: AppColors.instance.primary200,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    AppSize.width(value: 5.0),
+                                  ),
+                                ),
                                 onChanged: (value) {
-                                  controller.changeTermsAndConditions(value ?? false);
+                                  controller.changeTermsAndConditions(
+                                    value ?? false,
+                                  );
                                 },
                               ),
                             ),
@@ -151,26 +211,48 @@ class SignUpScreen extends StatelessWidget {
                             Expanded(
                               child: Text.rich(
                                 TextSpan(
-                                  text: "By creating an account, I agree to the ",
-                                  style: TextStyle(color: AppColors.instance.dark400, fontFamily: AppConstant.instance.font, height: 1.5),
+                                  text:
+                                      "By creating an account, I agree to the ",
+                                  style: TextStyle(
+                                    color: AppColors.instance.dark400,
+                                    fontFamily: AppConstant.instance.font,
+                                    height: 1.5,
+                                  ),
                                   children: [
                                     TextSpan(
                                       text: "Terms & Conditions",
-                                      style: TextStyle(color: AppColors.instance.primary),
+                                      style: TextStyle(
+                                        color: AppColors.instance.primary,
+                                      ),
                                       recognizer:
                                           TapGestureRecognizer()
                                             ..onTap = () {
-                                              Get.toNamed(AppRoutes.instance.termsAndConditions);
+                                              Get.toNamed(
+                                                AppRoutes
+                                                    .instance
+                                                    .termsAndConditions,
+                                              );
                                             },
                                     ),
-                                    TextSpan(text: " & ", style: TextStyle(color: AppColors.instance.dark400)),
+                                    TextSpan(
+                                      text: " & ",
+                                      style: TextStyle(
+                                        color: AppColors.instance.dark400,
+                                      ),
+                                    ),
                                     TextSpan(
                                       text: "Privacy Policy",
-                                      style: TextStyle(color: AppColors.instance.primary),
+                                      style: TextStyle(
+                                        color: AppColors.instance.primary,
+                                      ),
                                       recognizer:
                                           TapGestureRecognizer()
                                             ..onTap = () {
-                                              Get.toNamed(AppRoutes.instance.privacyPolicy);
+                                              Get.toNamed(
+                                                AppRoutes
+                                                    .instance
+                                                    .privacyPolicy,
+                                              );
                                             },
                                     ),
                                   ],
@@ -183,8 +265,14 @@ class SignUpScreen extends StatelessWidget {
                       Gap(height: AppSize.height(value: 30)),
                       Obx(
                         () => AppButton(
-                          backgroundColor: controller.termsAndConditions.value ? AppColors.instance.primary : AppColors.instance.dark100,
-                          borderColor: controller.termsAndConditions.value ? AppColors.instance.primary : AppColors.instance.dark100,
+                          backgroundColor:
+                              controller.termsAndConditions.value
+                                  ? AppColors.instance.primary
+                                  : AppColors.instance.dark100,
+                          borderColor:
+                              controller.termsAndConditions.value
+                                  ? AppColors.instance.primary
+                                  : AppColors.instance.dark100,
                           loaderColor: AppColors.instance.white50,
                           title: "Next",
                           onTap:
@@ -199,11 +287,19 @@ class SignUpScreen extends StatelessWidget {
                       Text.rich(
                         TextSpan(
                           text: "Already have an account? ",
-                          style: TextStyle(color: AppColors.instance.dark400, fontFamily: AppConstant.instance.font, height: 1.5),
+                          style: TextStyle(
+                            color: AppColors.instance.dark400,
+                            fontFamily: AppConstant.instance.font,
+                            height: 1.5,
+                          ),
                           children: [
                             TextSpan(
                               text: "Sign In",
-                              style: TextStyle(color: AppColors.instance.primary, decoration: TextDecoration.underline, decorationColor: AppColors.instance.primary),
+                              style: TextStyle(
+                                color: AppColors.instance.primary,
+                                decoration: TextDecoration.underline,
+                                decorationColor: AppColors.instance.primary,
+                              ),
                               recognizer:
                                   TapGestureRecognizer()
                                     ..onTap = () {

@@ -10,7 +10,8 @@ class ForgotScreenController extends GetxController {
   PageController pageController = PageController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
-  TextEditingController confirmPasswordTextEditingController = TextEditingController();
+  TextEditingController confirmPasswordTextEditingController =
+      TextEditingController();
   TextEditingController otpController = TextEditingController();
   GlobalKey<FormState> formKey1 = GlobalKey<FormState>();
   GlobalKey<FormState> formKey2 = GlobalKey<FormState>();
@@ -19,7 +20,10 @@ class ForgotScreenController extends GetxController {
   void checkEmailFunction() {
     try {
       if (formKey1.currentState!.validate()) {
-        pageController.nextPage(duration: 300.milliseconds, curve: Curves.easeInOut);
+        pageController.nextPage(
+          duration: 300.milliseconds,
+          curve: Curves.easeInOut,
+        );
         startTimer();
       }
     } catch (e) {
@@ -30,7 +34,10 @@ class ForgotScreenController extends GetxController {
   void checkOtpFunction() {
     try {
       if (formKey2.currentState!.validate()) {
-        pageController.nextPage(duration: 300.milliseconds, curve: Curves.easeInOut);
+        pageController.nextPage(
+          duration: 300.milliseconds,
+          curve: Curves.easeInOut,
+        );
       }
     } catch (e) {
       errorLog("checkOtpFunction", e);

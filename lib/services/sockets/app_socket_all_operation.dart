@@ -5,7 +5,8 @@ import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class AppSocketAllOperation {
   AppSocketAllOperation._privateConstructor();
-  static final AppSocketAllOperation _instance = AppSocketAllOperation._privateConstructor();
+  static final AppSocketAllOperation _instance =
+      AppSocketAllOperation._privateConstructor();
   static AppSocketAllOperation get instance => _instance;
 
   io.Socket? appRootSocket;
@@ -20,7 +21,10 @@ class AppSocketAllOperation {
     _connectSocketToServer();
   }
 
-  void readEvent({required String event, required void Function(dynamic) handler}) {
+  void readEvent({
+    required String event,
+    required void Function(dynamic) handler,
+  }) {
     try {
       // Store the handler for reconnection scenarios
       if (!_eventHandlers.containsKey(event)) {
@@ -83,9 +87,17 @@ class AppSocketAllOperation {
     appRootSocket?.on('connect', listener);
   }
 
-  void vendorLiveLocationUpdate({required String orderId, required dynamic latitude, required dynamic longitude}) {
+  void vendorLiveLocationUpdate({
+    required String orderId,
+    required dynamic latitude,
+    required dynamic longitude,
+  }) {
     try {
-      final data = {"orderId": orderId, "latitude": _convertToDouble(latitude), "longitude": _convertToDouble(longitude)};
+      final data = {
+        "orderId": orderId,
+        "latitude": _convertToDouble(latitude),
+        "longitude": _convertToDouble(longitude),
+      };
       emitEvent("liveTracking", data);
     } catch (e, stackTrace) {
       errorLog("vendorLiveLocationUpdate$e", stackTrace);
@@ -110,7 +122,12 @@ class AppSocketAllOperation {
 
       appRootSocket = io.io(
         AppApiEndPoint.instance.domain,
-        io.OptionBuilder().setTransports(['websocket']).disableAutoConnect().setExtraHeaders({'foo': 'bar'}).enableReconnection().build(),
+        io.OptionBuilder()
+            .setTransports(['websocket'])
+            .disableAutoConnect()
+            .setExtraHeaders({'foo': 'bar'})
+            .enableReconnection()
+            .build(),
       );
 
       // Setup connection listeners

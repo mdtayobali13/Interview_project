@@ -15,7 +15,9 @@ class ConnectivityService extends GetxController {
     try {
       List<ConnectivityResult> result = await connectivity.checkConnectivity();
       _updateConnectionStatus(result);
-      connectivitySubscription = connectivity.onConnectivityChanged.listen((event) {
+      connectivitySubscription = connectivity.onConnectivityChanged.listen((
+        event,
+      ) {
         _updateConnectionStatus(event);
       });
     } on PlatformException catch (e) {

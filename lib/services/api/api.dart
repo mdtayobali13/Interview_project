@@ -56,7 +56,15 @@ class AppApi {
         },
       ),
       if (kDebugMode)
-        PrettyDioLogger(requestHeader: true, request: true, compact: true, error: true, requestBody: true, responseHeader: true, responseBody: true),
+        PrettyDioLogger(
+          requestHeader: true,
+          request: true,
+          compact: true,
+          error: true,
+          requestBody: true,
+          responseHeader: true,
+          responseBody: true,
+        ),
     });
   }
   Dio get sendRequest => _dio;

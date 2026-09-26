@@ -54,8 +54,18 @@ class AppExpandableText extends StatelessWidget {
         decoration: decoration,
         decorationStyle: decorationDecorationStyle,
       ),
-      lessStyle: TextStyle(fontSize: 14, fontFamily: fontFamily ?? AppConstant.instance.font, fontWeight: FontWeight.bold, color: collopsTextColor ?? AppColors.instance.blue2_500),
-      moreStyle: TextStyle(fontSize: 14, fontFamily: fontFamily ?? AppConstant.instance.font, fontWeight: FontWeight.bold, color: expandedTextColor ?? AppColors.instance.blue2_500),
+      lessStyle: TextStyle(
+        fontSize: 14,
+        fontFamily: fontFamily ?? AppConstant.instance.font,
+        fontWeight: FontWeight.bold,
+        color: collopsTextColor ?? AppColors.instance.blue2_500,
+      ),
+      moreStyle: TextStyle(
+        fontSize: 14,
+        fontFamily: fontFamily ?? AppConstant.instance.font,
+        fontWeight: FontWeight.bold,
+        color: expandedTextColor ?? AppColors.instance.blue2_500,
+      ),
     );
   }
 }

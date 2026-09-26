@@ -1,6 +1,7 @@
 class AppAssertDevImage {
   AppAssertDevImage._privateConstructor();
-  static final AppAssertDevImage _instance = AppAssertDevImage._privateConstructor();
+  static final AppAssertDevImage _instance =
+      AppAssertDevImage._privateConstructor();
   static AppAssertDevImage get instance => _instance;
 
   final String car1 = "assets/dev_image/car_1.png";

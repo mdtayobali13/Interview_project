@@ -10,12 +10,18 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-void appImageUserTake({required RxString localImagePath, required Function() callBack}) {
+void appImageUserTake({
+  required RxString localImagePath,
+  required Function() callBack,
+}) {
   Get.bottomSheet(
     Container(
       margin: EdgeInsets.all(AppSize.height(value: 20.0)),
       padding: EdgeInsets.all(AppSize.height(value: 10.0)),
-      decoration: BoxDecoration(color: AppColors.instance.white500, borderRadius: BorderRadius.circular(AppSize.width(value: 12.0))),
+      decoration: BoxDecoration(
+        color: AppColors.instance.white500,
+        borderRadius: BorderRadius.circular(AppSize.width(value: 12.0)),
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -34,12 +40,23 @@ void appImageUserTake({required RxString localImagePath, required Function() cal
                 child: GestureDetector(
                   onTap: () {
                     Navigator.pop(Get.context!);
-                    appUserImagePic(source: ImageSource.camera, localImagePath: localImagePath, callBack: callBack);
+                    appUserImagePic(
+                      source: ImageSource.camera,
+                      localImagePath: localImagePath,
+                      callBack: callBack,
+                    );
                   },
                   child: Column(
                     children: [
-                      Icon(Icons.camera_alt, size: 60, color: AppColors.instance.primary),
-                      const AppText(data: "Camera", fontWeight: FontWeight.w700),
+                      Icon(
+                        Icons.camera_alt,
+                        size: 60,
+                        color: AppColors.instance.primary,
+                      ),
+                      const AppText(
+                        data: "Camera",
+                        fontWeight: FontWeight.w700,
+                      ),
                     ],
                   ),
                 ),
@@ -49,12 +66,23 @@ void appImageUserTake({required RxString localImagePath, required Function() cal
                   onTap: () {
                     Navigator.pop(Get.context!);
 
-                    appUserImagePic(source: ImageSource.gallery, localImagePath: localImagePath, callBack: callBack);
+                    appUserImagePic(
+                      source: ImageSource.gallery,
+                      localImagePath: localImagePath,
+                      callBack: callBack,
+                    );
                   },
                   child: Column(
                     children: [
-                      Icon(Icons.collections, size: 60, color: AppColors.instance.primary),
-                      const AppText(data: "Gallery", fontWeight: FontWeight.w700),
+                      Icon(
+                        Icons.collections,
+                        size: 60,
+                        color: AppColors.instance.primary,
+                      ),
+                      const AppText(
+                        data: "Gallery",
+                        fontWeight: FontWeight.w700,
+                      ),
                     ],
                   ),
                 ),
@@ -68,7 +96,11 @@ void appImageUserTake({required RxString localImagePath, required Function() cal
   );
 }
 
-Future<void> appUserImagePic({required ImageSource source, required RxString localImagePath, required Function() callBack}) async {
+Future<void> appUserImagePic({
+  required ImageSource source,
+  required RxString localImagePath,
+  required Function() callBack,
+}) async {
   try {
     bool permissionGranted = false;
 
@@ -81,7 +113,8 @@ Future<void> appUserImagePic({required ImageSource source, required RxString loc
       if (status.isDenied) {
         var response = await askFirst(
           title: "Camera Access Required",
-          content: """We need access to your camera so you can update your profile picture""",
+          content:
+              """We need access to your camera so you can update your profile picture""",
           acceptButton: "Allow Camera",
         );
         if (response) {
@@ -95,7 +128,8 @@ Future<void> appUserImagePic({required ImageSource source, required RxString loc
       if (status.isPermanentlyDenied) {
         var response = await getCallAgainPermission(
           title: "Camera Access Required",
-          content: """We need access to your camera so you can update your profile picture""",
+          content:
+              """We need access to your camera so you can update your profile picture""",
           acceptButton: "Allow Camera",
         );
         if (response) {
@@ -209,7 +243,8 @@ Your data is never shared and stays on your device unless you choose to upload i
 
 Future<bool> askFirst({
   String title = "Gallery",
-  String content = "This permission is required to continue. Please enable it from settings.",
+  String content =
+      "This permission is required to continue. Please enable it from settings.",
   String acceptButton = "Open Settings",
   String cancelButton = "Cancel",
 }) async {
@@ -239,7 +274,8 @@ Future<bool> askFirst({
 
 Future<bool> getCallAgainPermission({
   String title = "Gallery",
-  String content = "This permission is required to continue. Please enable it from settings.",
+  String content =
+      "This permission is required to continue. Please enable it from settings.",
   String acceptButton = "Open Settings",
   String cancelButton = "Cancel",
 }) async {

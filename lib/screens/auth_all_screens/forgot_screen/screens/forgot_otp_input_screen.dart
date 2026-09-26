@@ -27,37 +27,61 @@ class ForgotOtpInputScreen extends StatelessWidget {
           child: Column(
             children: [
               SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: AppSize.width(value: 20.0)),
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSize.width(value: 20.0),
+                ),
                 child: Form(
                   key: controller.formKey2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      AppImage(path: AppAssertImage.instance.otpVerification, width: AppSize.size.width * 0.8),
+                      AppImage(
+                        path: AppAssertImage.instance.otpVerification,
+                        width: AppSize.size.width * 0.8,
+                      ),
 
                       Column(
                         children: [
-                          AppText(data: "Verify your account", fontSize: 25, fontWeight: FontWeight.w500),
+                          AppText(
+                            data: "Verify your account",
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                          ),
                           Gap(height: 5),
-                          AppText(data: "We've Sent a Code to ${OtpRelatedFunction().maskEmail(controller.emailController.text)}"),
+                          AppText(
+                            data:
+                                "We've Sent a Code to ${OtpRelatedFunction().maskEmail(controller.emailController.text)}",
+                          ),
                           Gap(height: 30),
                           AppInputWidget(
                             borderColor: AppColors.instance.primary300,
                             hintText: "_ _ _ _ _ _",
                             textAlign: TextAlign.center,
                             keyboardType: TextInputType.phone,
-                            inputFormatters: [OtpNumberFormatter(), FilteringTextInputFormatter.digitsOnly],
+                            inputFormatters: [
+                              OtpNumberFormatter(),
+                              FilteringTextInputFormatter.digitsOnly,
+                            ],
                           ),
                           Gap(height: 10),
                           Obx(
                             () => RichText(
                               text: TextSpan(
-                                text: "Resend code in ${OtpRelatedFunction().formatSecondFunction(controller.secondsRemaining.value)} ",
-                                style: TextStyle(color: AppColors.instance.dark400, fontSize: 14),
+                                text:
+                                    "Resend code in ${OtpRelatedFunction().formatSecondFunction(controller.secondsRemaining.value)} ",
+                                style: TextStyle(
+                                  color: AppColors.instance.dark400,
+                                  fontSize: 14,
+                                ),
                                 children: [
                                   TextSpan(
                                     text: "Resend",
-                                    style: TextStyle(color: controller.secondsRemaining.value > 0 ? AppColors.instance.dark400 : AppColors.instance.primary500),
+                                    style: TextStyle(
+                                      color:
+                                          controller.secondsRemaining.value > 0
+                                              ? AppColors.instance.dark400
+                                              : AppColors.instance.primary500,
+                                    ),
                                     recognizer:
                                         TapGestureRecognizer()
                                           ..onTap = () {
